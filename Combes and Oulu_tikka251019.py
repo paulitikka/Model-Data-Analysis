@@ -1041,6 +1041,59 @@ def rolling_window(a, window):
     strides = a.strides + (a.strides[-1],) 
     return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides) 
 
+#%%
+dfce2_v3=dfc_experim2[['sample','time','speed']] 
+dfce2_v3=dfce2_v3.dropna(axis=0) #note, axis=0  
+dfz2=dfce2_v3[dfce2_v3['sample'].isin(['1','4','5'])]
+#https://thispointer.com/python-pandas-select-rows-in-dataframe-by-conditions-on-multiple-columns/
+lot=list(range(0,50))
+#https://cmdlinetips.com/2018/02/how-to-subset-pandas-dataframe-based-on-values-of-a-column/
+dfz2=dfz2[dfz2.time.isin(lot)]
+dfz2=dfz2.set_index("time")
+dfz22=dfz2['speed']
+okoo=[]    
+for index in lot:
+    okoo.append(dfz22[dfz22.index==[index]])
+okoo=okoo[2:50]
+import numpy as np
+b = np.zeros([len(okoo),len(max(okoo,key = lambda x: len(x)))])
+for i,j in enumerate(okoo):
+    b[i][0:len(j)] = j #toimi, viimeinkin!!
+b=b.T
+b=b*60         
+#%%
+#The experimental values to b matrix are obtained above for the rollwing window
+zz=rolling_window(b, 24) #103X48 matrice, i.e 103 data measurments per whole 48 time space
+yy=np.mean(zz, -1) 
+yz=np.mean(yy, 0) 
+plt.figure()
+plt.plot(yz)
+
+#
+okok=[]
+for i in range(0,(len(yz)-1)):
+    okok.append(np.arange(yz[i], yz[i+1], (yz[i+1] - yz[i])/(1000/len(yz))))
+
+#Finally the calculation 
+okok2 = np.concatenate([np.array(i) for i in okok])
+okok2=okok2[0:1001]    
+df_col=list(range(0,1001))
+plt.figure()
+plt.xlabel('Time (MCS)', fontsize=18)
+plt.ylabel('Speed (μm/min)', fontsize=18)
+
+plt.plot(okok2)
+fig.savefig('Rolling mean to Combes data.jpg')
+#%%)
+df_testt2=[]
+df_testt2=pd.DataFrame(okok2)
+df_testt2["iter"]=pd.DataFrame(df_col)
+df_testt2.columns = ["value","iter"]
+columnsTitles=["iter","value"]
+df_testt2=df_testt2.reindex(columns=columnsTitles)
+df_testt2.to_csv('C:/pyintro/moving average speed set from Combes.csv', index=False,header=True)                                     
+                                     
+                                     
 #The experimental values to b matrix are obtained above for the rollwing window
 zz=rolling_window(b1[80:180]*60, 3) #103X48 matrice, i.e 103 data measurments per whole 48 time space
 yy=np.mean(zz, -1) 
