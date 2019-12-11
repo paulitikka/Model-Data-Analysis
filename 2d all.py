@@ -5,9 +5,9 @@ Created on Wed Aug  7 16:00:57 2019
 @author: pauli
 """
 
-# 2D ANALYSIS codes and routines, tikka 7.8.19, 7 phases:
+# 2D ANALYSIS codes and routines, tikka 7.8.19, 8 phases:
 # 1. import packages, 2. import model data, 3. peforming the calculations with functions,
-# 4-6. create the functions for the calculations, and 7. create a good fucntion for data skimming 
+# 4-7. create the functions for the calculations, and 8. create a good fucntion for data skimming 
 # and importing from your folder systems
 
 #%% 1) IMPORT PACKAGES
@@ -96,7 +96,7 @@ resulti= Amount_3D_ci(dataframes,
                       cond='ACells',cond1='corner', conda='pers2',time=100,name='C:/python/Model_results/FIELDS/new_fields/UB_MMcorner_amount_M7_24919tikka'
                       )    #np_adh3d
 
-#%% 4) CREATE THE FUNCTIONS FOR CALCULATING SPEEDS (LONG DESTCTIPTIONSTCTIPTION)  
+#%% 4) CREATE THE FUNCTIONS FOR CALCULATING SPEEDS (LONG DESCRIPTION)  
 #First function for speeds
 #Select criteria; half of the cells
 def crit_fun(dataframes,x0,x1,y0,y1):
@@ -425,7 +425,7 @@ def Speed_3D_ci(dataframes,cond,conda,time,dt,name):
     resulti.to_csv(name,index=False,header='infer') #Tallennus samassa
     return resulti
 
-#%% 5) CREATE THE FUNCTIONS FOR CALCULATING DISTANCES (LONG DESTCTIPTIONSTCTIPTION)  
+#%% 5) CREATE THE FUNCTIONS FOR CALCULATING DISTANCES (LONG ...)  
 #First function for distances
 #Select criteria; half of the cells
 def crit_fun(dataframes,x0,x1,y0,y1):
@@ -631,7 +631,7 @@ def Dist_3D_ci(dataframes,time,cond,conda,name):
     resulti.to_csv(name, index=False, header='infer') #Tallennus samassa
     return resulti
 
-#%% 6) CREATE THE FUNCTIONS FOR CALCULATING CONCENTRATIONS (LONG DESTCTIPTIONSTCTIPTION)  
+#%% 6) CREATE THE FUNCTIONS FOR CALCULATING CONCENTRATIONS (LONG DESTCTIPTIONSTCTIPTION) :) 
 #First function concentrations, the half criteria:
 def crit_fun(dataframes,x0,x1,y0,y1):
     dataframes2 = []
@@ -882,7 +882,7 @@ def conc_3D_ci(dataframes,cond,conda,time,name):
     resulti.to_csv(name,index=False,header='infer') #Tallennus samassa
     return resulti
 	
-#%% 6) CREATE THE FUNCTIONS FOR CALCULATING QUANTITIES (LONG DESTCTIPTIONSTCTIPTION)  
+#%% 7) CREATE THE FUNCTIONS FOR CALCULATING QUANTITIES (LONG DESCRIPTION)  
 #The first funciton for the conditions, corner or tip region:
 def crit_funt(dataframes,y0, cond1):
     dataframes2 = []
@@ -969,7 +969,7 @@ Amount_3D_ci(dataframes,cond = 'ACells',cond1='corner' ,conda='pers2',time=101,
 #%%Rename (and move model simulation) files (yes, three phases to get the from A to B)
 #https://stackoverflow.com/questions/38948774/python-append-folder-name-to-filenames-in-all-sub-folders
 
-#%% 7) BRING OR CURATE FILES FROM OTHER FOLDERS TO ANTOHER INORDER TO GET THEM IN OK SHAPE FOR CALCULATIONS:
+#%% 8) BRING OR CURATE FILES FROM OTHER FOLDERS TO ANTOHER INORDER TO GET THEM IN OK SHAPE FOR CALCULATIONS:
 #Auxialiry funciton for next 'remove' function:
 def copyfiles(srcdir, dstdir, filepattern):
 	def failed(exc):
