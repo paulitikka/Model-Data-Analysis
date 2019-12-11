@@ -131,7 +131,7 @@ def speed3_preli(dataframes,cond, conda):
     elif conda == 'pers2':       
         dfcell_names3d=[]    
         dfcell_names3d=dataframes
-        dfcell_names3d=dfcell_names3d.ix[0:195,0:3]
+        dfcell_names3d=dfcell_names3d.ix[0:195,0:3] #There are less cells in 2D than in 3D.
         dfcell_names3d.ix[:,1]=list(np.where(dfcell_names3d.ix[:,1] > 1, 'ACells', 'NPCells'))
         dfcell_names3da=dfcell_names3d.ix[:,0:2] 
         cols = dfcell_names3da.columns.tolist()
