@@ -112,12 +112,11 @@ def crit_fun(dataframes,x0,x1,y0,y1):
 
 #Make an auxialiry function for next criteria speed (and for other similarly) function:
 def intersection(lst1, lst2): 
-	lst3 = [value for value in lst1 if value in lst2] 
+    lst3 = [value for value in lst1 if value in lst2] 
     return lst3   
 
 #Select criteria2, e.g. tip or corner:
 def speed3_preli(dataframes,cond, conda):
-    #%
     df_dist_adh3d=dataframes
 #% Muokkaus
 #% Valitse yhden tiedoston kaikki NP solut yhtena ajan kohtana:
@@ -131,7 +130,7 @@ def speed3_preli(dataframes,cond, conda):
     elif conda == 'pers2':       
         dfcell_names3d=[]    
         dfcell_names3d=dataframes
-        dfcell_names3d=dfcell_names3d.ix[0:195,0:3] #There are less cells in 2D than in 3D.
+        dfcell_names3d=dfcell_names3d.ix[0:195,0:3] #in 2D there are less cells than in 3D
         dfcell_names3d.ix[:,1]=list(np.where(dfcell_names3d.ix[:,1] > 1, 'ACells', 'NPCells'))
         dfcell_names3da=dfcell_names3d.ix[:,0:2] 
         cols = dfcell_names3da.columns.tolist()
@@ -300,20 +299,13 @@ def x_y_dis_fun(dataframes,setti,time):
 
 # New speed function
 def news1(dataframes,setti,time,dt):
-#%
     axan, byan = x_y_dis_fun(dataframes,setti,time)
     #Selecting the correct spaces
-#    dft=dataframes.set_index("time_mcs")
-    #%
     index_cells=len(setti)            # max cell values
     index_time=time
-#    len(dft.index.unique())     # max time value
     r=np.zeros((index_cells,index_time)) # here should be the size of the matrix len(...)
-    #%
-#    for i in range(index_cells):
     for j in range(index_time-1):
         r[:,j] = np.sqrt((axan[:,(j+1)]-axan[:,j])**2+(byan[:,(j+1)]-byan[:,j])**2)
-    #%
     r2=r/dt
     r2=r2[:,0:(time-1)]
     
@@ -339,7 +331,6 @@ def speed_fun(dataframes,setti,setti2,setti3,time,dt):   #both,corner,tip
     speed2=news1(dataframes,setti2,time,dt)      
 #	tip
     speed=news1(dataframes,setti3,time,dt)      
-  #%
     yes=pd.DataFrame(speed)    #tip
     yes2=pd.DataFrame(speed2) #corner
     yes3=pd.DataFrame(speed3) #both                
@@ -425,7 +416,7 @@ def Speed_3D_ci(dataframes,cond,conda,time,dt,name):
     resulti.to_csv(name,index=False,header='infer') #Tallennus samassa
     return resulti
 
-#%% 5) CREATE THE FUNCTIONS FOR CALCULATING DISTANCES (LONG ...)  
+#%% 5) CREATE THE FUNCTIONS FOR CALCULATING DISTANCES (LONG DESTCTIPTIONSTCTIPTION)  
 #First function for distances
 #Select criteria; half of the cells
 def crit_fun(dataframes,x0,x1,y0,y1):
@@ -631,7 +622,7 @@ def Dist_3D_ci(dataframes,time,cond,conda,name):
     resulti.to_csv(name, index=False, header='infer') #Tallennus samassa
     return resulti
 
-#%% 6) CREATE THE FUNCTIONS FOR CALCULATING CONCENTRATIONS (LONG DESTCTIPTIONSTCTIPTION) :) 
+#%% 7) CREATE THE FUNCTIONS FOR CALCULATING CONCENTRATIONS (LONG DESCRIPTION)  
 #First function concentrations, the half criteria:
 def crit_fun(dataframes,x0,x1,y0,y1):
     dataframes2 = []
@@ -782,7 +773,6 @@ def x_y_z_dis_fun2(dataframes,setti,time):
 
 #% New concentration function
 def news(dataframes,setti,time):
-#%
     axan= x_y_z_dis_fun2(dataframes,setti,time)
     #Selecting the correct spaces
     index_cells=len(setti)            # max cell values
