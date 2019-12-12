@@ -171,6 +171,7 @@ hh3=hh2[8:]
 yes=[]
 yes2=[]
 yes3=[]
+#%%
 for i in range(time):
     yes.append(mean_confidence_interval(result[[i]], confidence=0.95))
 dfz=dfce2_v3.set_index("sample")
@@ -184,7 +185,9 @@ ind=[4, 6, 11, 13, 14, 16, 17]
 ok=[]
 for index in ind:
     ok.append(dfz2yn['time'].ix[index].value_counts())
-ok[3] = np.concatenate(ok[3].insert(31,1)  
+
+ok[3] = np.concatenate(ok[3].insert(31,1) 
+#%%
 heihou=[]
 hh2=[]
 for i in range(len(ok)):    
