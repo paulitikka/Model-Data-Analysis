@@ -7,12 +7,10 @@ Created on Mon Nov 19 11:22:12 2018
 
 #SOM ANALYSIS codes and routines, tikka 7.8.19, 10 phases:
 # 1. import packages, 2. import model data, 3. converst data suitable for som, dsom matrix (i.e. right scope and .csv),
-# 4. check the speed regions manually from dsom, 5. excecute and plot SOM nodes, 6. group the nodes, 
-# 7. choose and show the best node groups
-# 8. semisom function, 9. execute the selection of best groups, semisom, and speed coordinate plots, 
-# 10. save essential data for reanalysis
+# 4. check the speed regions manually from dsom, 5. excecute and plot SOM nodes, 6. group the nodes, 7. choose and show the best node groups
+# 8. semisom function, 9. execute the selection of best groups, semisom, and speed coordinate plots, 10. save essential data for reanalysis
  
-#%% 1) IMPORT PACKAGES
+#%% 1) IMPORT PACKAGES (TO SPYDER)
 import aok_tikka71018 #own pacakes, may be needed
 import os
 import pandas as pd #for importing files,  https://pandas.pydata.org/pandas-docs/version/0.18.1/generated/pandas.DataFrame.html
@@ -35,6 +33,7 @@ from statsmodels.api import qqplot_2samples #for QQ plots
 from numpy import * #e.g isnan command
 from itertools import cycle, chain # for efficient iterations
 from math import atan2,degrees # for degrees, and angles
+# if no minisom package, do in 'inanaconda prompt' following: (base) C:\Users\pauli>pip install minisom 
 from minisom import MiniSom #HERE IS THE SOM FUNCTION
 from numpy import genfromtxt,array,linalg,zeros,apply_along_axis 
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
@@ -44,7 +43,7 @@ from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 dfc_experim2 = pd.read_excel('C:/python/' + 'mmc4.xlsx')
 df2_experimi = pd.read_excel('C:/python/' + 'left-speed.xls', header=None)
 #https://stackoverflow.com/questions/38884466/how-to-select-a-range-of-values-in-a-pandas-dataframe-column
-#%% OULU EXPERIMENTS! i.e. KIDNEY CULTURE
+#% OULU EXPERIMENTS! i.e. KIDNEY CULTURE
 # Oulu 2018 positions->distances, always check the header
 df_oulu_x = pd.read_csv('C:/python/position_1_5b3d.csv', delimiter=',', header=None)
 df_oulu_y = pd.read_csv('C:/python/position_2_5b3d.csv', delimiter=',', header=None)
@@ -76,7 +75,7 @@ d_som=d_som[d_som['tip']<=np.max(d_som['tipendDist'])]
 d_som=d_som[d_som['corner']<=np.max(d_som['tipendDist'])]
 d_som['tip per corner']=d_som['tip']/d_som['corner'] 
 
-#Second, DSOM to Oulu (Kidney Organoid) data:
+#%%Second, DSOM to Oulu (Kidney Organoid) data:
 df_oulu_x=df_oulu_x.T*0.24
 df_oulu_y=df_oulu_y.T*0.24
 df_oulu_z=df_oulu_z.T*0.24
@@ -258,6 +257,7 @@ d_som['time']=d_som['time'].fillna(0)
 d_som['speed']=d_som['speed'].fillna(0)
 d_som['velocity']=d_som['velocity'].fillna(0)
 d_som=d_som.ix[:,1:]
+#%%Do this for experiments and model data separately:
 d_som.to_csv('C:/python/SOM_REF_EXPS AND MODS/irist.csv',index=False,header=False)
 #https://matplotlib.org/gallery/images_contours_and_fields/contourf_demo.html#sphx-glr-gallery-images-contours-and-fields-contourf-demo-py
 #https://www.geeksforgeeks.org/python-pandas-dataframe-insert/ (not like this)
@@ -916,9 +916,7 @@ def show(d_som,on_indexi):
             "Speed normed / AU": colors,
             "Speed potential normed / AU": colors
         })
-    fig, ax = plt.subplots()
-#    plt.axis([(min(x)-round(var(x)*4,2)), (max(x)+round(var(x)*4,2)), 
-#              (min(colors)-round(var(colors)*4,2)), (max(colors)+round(var(colors)*4,2))])   
+    fig, ax = plt.subplots() 
     result2 = test_df2.sort_values(by=["Speed potential normed / AU"],ascending=True)
     #for i in range(len(test_df)):
     result2.plot(kind="scatter", x="X normed / AU", y="Speed normed / AU", s=10,
@@ -1078,6 +1076,7 @@ def speed_loc(mt1,mt2):
             print(i+1)
             
     return a
+#%%
 a=speed_loc(mt1,mt2)    
 
 #%%Analysing the groups one-by-one, semisom and esp. the speed coordinate plots of groups
