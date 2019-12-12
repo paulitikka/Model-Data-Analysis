@@ -75,12 +75,12 @@ resulti.to_csv('C:/python/Model_results/speedCI_rnd_3D_all_tikka25919.csv',index
 yes2=[]
 yes3=[]
 yes4=[]
-yes2=Dist_3D_ci(dataframes,cond='ACells',conda='rnd',time=101,name='C:/python/Model_results/3Drnd_field_new/distCI_rnd_3D_MM.csv')
-yes3=Dist_3D_ci(dataframes,cond='NPCells',conda='rnd',time=101,name='C:/python/Model_results/3Drnd_field_new/distCI_rnd_3D_NP.csv')
-yes4=Dist_3D_ci(dataframes,cond='both', conda='rnd',time=101,name='C:/python/Model_results/3Drnd_field_new/distCI_rnd_3D_NP&MM.csv')
+yes2=Dist_3D_ci(dataframes,cond='ACells',conda='rnd',time=101,name='C:/python/Model_results/distCI_rnd_3D_MM.csv')
+yes3=Dist_3D_ci(dataframes,cond='NPCells',conda='rnd',time=101,name='C:/python/Model_results/distCI_rnd_3D_NP.csv')
+yes4=Dist_3D_ci(dataframes,cond='both', conda='rnd',time=101,name='C:/python/Model_results/distCI_rnd_3D_NP&MM.csv')
 resultia = pd.concat([yes2, yes3, yes4], axis=1, sort=False)
-resultia.to_csv('C:/python/Model_results/3Drnd_field_new/distCI_rnd_3D_all_tikka25919.csv',index=False,header='infer')    
-#%%Concentrations: (separate run?)
+resultia.to_csv('C:/python/Model_results/distCI_rnd_3D_all_tikka25919.csv',index=False,header='infer')    
+#%Concentrations: (separate run?)
 yesxi=[]    
 yesxi2=[]
 yesxi3=[]
@@ -88,19 +88,19 @@ yesxi=conc_3D_ci(dataframes,cond='NPCells',conda='rnd',time=101,name='C:/python/
 yesxi2=conc_3D_ci(dataframes,cond='ACells',conda='rnd',time=101,name='C:/python/Model_results/concCI_rnd_3D_MM.csv')
 yesxi3=conc_3D_ci(dataframes,cond='both',conda='rnd',time=101,name='C:/python/Model_results/concCI_rnd_3D_NP&MM.csv')
 resultib = pd.concat([yesxi, yesxi2, yesxi3], axis=1, sort=False)
-resultib.to_csv('C:/python/Model_results/3Drnd_field_new/concCI_rnd_3D_all_tikka25919.csv',index=False,header='infer') 
+resultib.to_csv('C:/python/Model_results/concCI_rnd_3D_all_tikka25919.csv',index=False,header='infer') 
 #% Amounts:
 resulti= Amount_3D_ci(dataframes,
-                      cond='NPCells',cond1='tip', conda='pers2',time=101,name='C:/python/Model_results/3Drnd_field_new/UB_NPtip_amount_24919tikka'
+                      cond='NPCells',cond1='tip', conda='pers2',time=101,name='C:/python/Model_results/UB_NPtip_amount_24919tikka'
                       )    #np_adh3d
 resulti= Amount_3D_ci(dataframes,
-                      cond='ACells',cond1='tip', conda='pers2',time=101,name='C:/python/Model_results/3Drnd_field_new/UB_MMtip_amount_24919tikka'
+                      cond='ACells',cond1='tip', conda='pers2',time=101,name='C:/python/Model_results/UB_MMtip_amount_24919tikka'
                       )    #np_adh3d
 resulti= Amount_3D_ci(dataframes,
-                      cond='NPCells',cond1='corner', conda='pers2',time=101,name='C:/python/Model_results/3Drnd_field_new/UB_NPcorner_amount_24919tikka'
+                      cond='NPCells',cond1='corner', conda='pers2',time=101,name='C:/python/Model_results/UB_NPcorner_amount_24919tikka'
                       )    #np_adh3d
 resulti= Amount_3D_ci(dataframes,   
-                      cond='ACells',cond1='corner', conda='pers2',time=101,name='C:/python/Model_results/3Drnd_field_new/UB_MMcorner_amount_24919tikka'
+                      cond='ACells',cond1='corner', conda='pers2',time=101,name='C:/python/Model_results/UB_MMcorner_amount_24919tikka'
                       )    #np_adh3d
 
 #%% 4) CREATE THE FUNCTIONS FOR CALCULATING SPEEDS (LONG DESTCTIPTIONSTCTIPTION)  
@@ -121,10 +121,10 @@ def crit_fun(dataframes,x0,x1,y0,y1,z0,z1):
  
 #Make an auxialiry function for next criteria speed (and for other similarly) function:
 def intersection(lst1, lst2): 
-	lst3 = [value for value in lst1 if value in lst2] 
+    lst3 = [value for value in lst1 if value in lst2] 
     return lst3   
  
-#%%    Valitaan oikeat solut listana, (myöhemmin matriisina, josta CI lasku)
+#%    Valitaan oikeat solut listana, (myöhemmin matriisina, josta CI lasku)
 def speed3_preli(dataframes,cond,conda):
     df_dist_adh3d=dataframes
 # Muokkaus
@@ -184,7 +184,7 @@ def speed3_preli(dataframes,cond,conda):
 #%Test
 setti, setti2, setti3  = speed3_preli(dataframes[2],cond='NPCells', conda='rnd')    #both,corner, tip
 
-#%%xyz dis for NPCells, ACells, and Both
+#%xyz dis for NPCells, ACells, and Both
 def x_y_z_dis_fun(dataframes,setti,time):
     from random import randrange, uniform #just in case here, needed for random indexing    
 #%The X values:
@@ -313,7 +313,7 @@ def x_y_z_dis_fun(dataframes,setti,time):
 #% Test is always a good thing, also here in the functions sections:
 # mtt, mtt2, mtt3=x_y_z_dis_fun(dataframes[0],setti,time=101)
 
-#%% New speed function
+#% New speed function
 def news1(dataframes,setti,time,dt):
 #%
     axan, byan, czan = x_y_z_dis_fun(dataframes,setti,time)
